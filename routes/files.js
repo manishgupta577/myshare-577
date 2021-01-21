@@ -10,7 +10,7 @@ let storage = multer.diskStorage({
         const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}${path.extname(file.originalname)}`;
               cb(null, uniqueName)
     } ,
-});
+})
 
 let upload = multer({ storage, limits:{ fileSize: 1000000 * 100 }, }).single('myfile'); //100mb
 
@@ -45,7 +45,7 @@ router.post('/send', async (req, res) => {
     file.receiver = emailTo;
     const response = await file.save();
     // send mail
-    const sendMail = require('../services/mailService');
+    const sendMail = require('../services/emailService');
     sendMail({
       from: emailFrom,
       to: emailTo,
@@ -67,5 +67,6 @@ router.post('/send', async (req, res) => {
 }
 
 });
+
 
 module.exports = router;
